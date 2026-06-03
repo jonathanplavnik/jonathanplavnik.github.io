@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jonathan Plavnik • Applied Math & Finance</title>
+  <meta name="description" content="Jonathan Plavnik — Applied Math & Finance student at Rice University. Research, equity analysis, and engineering." />
+  <meta property="og:title" content="Jonathan Plavnik • Applied Math & Finance" />
+  <meta property="og:description" content="Applied Math & Finance student at Rice University." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#FFFFFF" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --fg: #1a1a1a;
+      --muted: #6b6b6b;
+      --border: #e5e5e5;
+      --accent: #1a1a1a;
+      --link: #1a1a1a;
+      --link-hover: #555;
+      --serif: 'Georgia', 'Times New Roman', serif;
+      --sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --mono: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111111;
+        --fg: #e8e8e8;
+        --muted: #999;
+        --border: #2a2a2a;
+        --accent: #e8e8e8;
+        --link: #e8e8e8;
+        --link-hover: #aaa;
+      }
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+      text-underline-offset: 3px;
+      transition: color 0.15s, text-decoration-color 0.15s;
+    }
+    a:hover {
+      color: var(--link-hover);
+      text-decoration-color: var(--link-hover);
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--fg);
+      color: var(--bg);
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 4px 4px;
+      font-size: 0.875rem;
+      z-index: 100;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 50;
+    }
+    .nav-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    .nav-name {
+      font-weight: 500;
+      font-size: 0.9375rem;
+      text-decoration: none;
+      color: var(--fg);
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      text-decoration: none;
+      color: var(--muted);
+    }
+    .nav-links a:hover { color: var(--fg); }
+
+    /* Main layout */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    /* Sections */
+    section { margin-bottom: 3.5rem; }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+    h2 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    h3 {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* Writing list */
+    .writing-list { list-style: none; }
+    .writing-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9375rem;
+    }
+    .writing-list li:first-child { border-top: 1px solid var(--border); }
+    .writing-date {
+      flex-shrink: 0;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      width: 4.5rem;
+    }
+    .writing-category {
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: var(--border);
+      padding: 1px 7px;
+      border-radius: 99px;
+      align-self: center;
+    }
+    .writing-title a {
+      text-decoration: none;
+      color: var(--fg);
+    }
+    .writing-title a:hover {
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+    }
+
+    /* Education */
+    .edu-entry { margin-bottom: 1.5rem; }
+    .edu-entry:last-child { margin-bottom: 0; }
+    .edu-school {
+      font-weight: 500;
+      font-size: 0.9375rem;
+    }
+    .edu-detail {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Social links */
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      list-style: none;
+    }
+    .social-links a {
+      font-size: 0.9375rem;
+      text-decoration: none;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+    }
+    .social-links a:hover { color: var(--fg); border-color: var(--fg); }
+
+    /* Footer */
+    footer {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 3rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-links { display: flex; gap: 1rem; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.8125rem; color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--fg); }
+    .footer-copy { font-size: 0.8125rem; color: var(--muted); }
+
+    @media (max-width: 520px) {
+      h1 { font-size: 1.625rem; }
+      .nav-links { gap: 1rem; }
+      .writing-list li { flex-wrap: wrap; gap: 0.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content ↓</a>
+
+  <nav aria-label="Site navigation">
+    <div class="nav-inner">
+      <a class="nav-name" href="/">Jonathan Plavnik</a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#writing">Blog</a></li>
+        <li><a href="#reading">Reading</a></li>
+        <li><a href="#reflection">Reflection</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- Hero -->
+    <section aria-label="Introduction">
+      <h1>Jonathan Plavnik</h1>
+      <h2>Applied Math &amp; Finance — Rice University</h2>
+      <p>
+        I'm a student at Rice University double-majoring in Applied Mathematics and Finance.
+        I do equity research through the Rice Undergraduate Investment Fund and Rice Securities
+        Investment Group, and operations research with the campus INFORMS chapter.
+        This site is a window into my research, analysis, and the ideas I find worth writing down.
+      </p>
+      <p>
+        My work spans fundamental equity analysis — building DCF models and investment theses
+        from the ground up — and applied math, including optimization and machine learning.
+        I'm especially interested in how quantitative methods improve investment decision-making.
+      </p>
+    </section>
+
+    <!-- On the web -->
+    <section aria-labelledby="web-heading">
+      <h3 id="web-heading">On the web</h3>
+      <ul class="social-links">
+        <li><a href="https://www.linkedin.com/in/jonathanplavnik" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/jonathanplavnik" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="mailto:jplavnik@rice.edu">Email</a></li>
+      </ul>
+    </section>
+
+    <!-- Education -->
+    <section aria-labelledby="edu-heading" id="education">
+      <h3 id="edu-heading">Education</h3>
+
+      <div class="edu-entry">
+        <div class="edu-school">Rice University</div>
+        <div class="edu-detail">
+          B.S. Applied Mathematics &amp; Finance, 2025–2029<br />
+          Senior Analyst, Rice Undergraduate Investment Fund (RUIF)<br />
+          Member, Rice Securities Investment Group (RSIG)<br />
+          Machine Learning Research, Rice INFORMS Chapter
+        </div>
+      </div>
+
+      <div class="edu-entry">
+        <div class="edu-school">Bergen County Academies</div>
+        <div class="edu-detail">
+          Academy for Business and Finance, Graduated 2025<br />
+          Founder, Investment Analysis Group · DECA Board · VP, Entrepreneurship Club<br />
+          Math &amp; Model UN Travel Teams<br />
+          Relevant coursework: Discrete Mathematics, Abstract Algebra, Algorithms &amp; Data Structures
+        </div>
+      </div>
+    </section>
+
+    <!-- Selected Writing -->
+    <section aria-labelledby="writing-heading" id="writing">
+      <h3 id="writing-heading">Selected Writing</h3>
+
+      <p style="font-size:0.875rem; color:var(--muted); margin-bottom:1rem;">Finance</p>
+      <ul class="writing-list">
+        <li>
+          <span class="writing-date">03/2026</span>
+          <span class="writing-category">Long</span>
+          <span class="writing-title">
+            <a href="LQDA_Executive_Summary_3_02.pdf" target="_blank">Liquidia Corp ($LQDA)</a>
+          </span>
+        </li>
+        <li>
+          <span class="writing-date">03/2026</span>
+          <span class="writing-category">Short</span>
+          <span class="writing-title">
+            <a href="Netapp_SHORT_2_page_3_14__1_.pdf" target="_blank">NetApp Inc ($NTAP)</a>
+          </span>
+        </li>
+        <li>
+          <span class="writing-date">02/2026</span>
+          <span class="writing-category">Long</span>
+          <span class="writing-title">
+            <a href="NetApp_1_Pager_2_16.pdf" target="_blank">NetApp Inc ($NTAP)</a>
+          </span>
+        </li>
+        <li>
+          <span class="writing-date">02/2026</span>
+          <span class="writing-category">Long</span>
+          <span class="writing-title">
+            <a href="jonathan_plavnk_rsig_pitch.pdf" target="_blank">Verisk Analytics ($VRSK)</a>
+          </span>
+        </li>
+      </ul>
+
+      <p style="font-size:0.875rem; color:var(--muted); margin: 1.5rem 0 1rem;">AI + CS</p>
+      <ul class="writing-list">
+        <li>
+          <span class="writing-date">04/2026</span>
+          <span class="writing-category">Research</span>
+          <span class="writing-title">
+            <a href="Columbia_Tap_OptiFlow_Technical_Report.pdf" target="_blank">Columbia Tap OptiFlow</a>
+          </span>
+        </li>
+        <li>
+          <span class="writing-date">01/2024</span>
+          <span class="writing-category">Project</span>
+          <span class="writing-title">
+            <a href="#">LumiSource</a>
+          </span>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <ul class="footer-links">
+      <li><a href="https://www.linkedin.com/in/jonathanplavnik" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/jonathanplavnik" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="mailto:jplavnik@rice.edu">Email</a></li>
+    </ul>
+    <span class="footer-copy">© 2025 – 2026 Jonathan Plavnik</span>
+  </footer>
+
+</body>
+</html>
